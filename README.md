@@ -46,3 +46,19 @@ The plugin should technically work with Word versions starting with 2003, but we
 due to impossible to fix bugs cropping up as time goes on and Microsoft drops compatibility themselves.
 Some API calls are on a deprecation path, so we may be inevitably be forced to move 
 away or split the library into multiple DLLs.
+
+## Convert Text Citations Feature (Pure VBA)
+
+This version includes a custom feature to convert plaintext citation markers into active Zotero fields. This is useful for workflows where citations are initially written in Markdown or other text formats.
+
+### Usage
+1.  **Format**: Ensure your text contains citations in a consistent format (e.g., `[Author, Year](zotero://select/items/ITEMKEY)`).
+2.  **Action**: Click the **Convert Text** button on the Zotero Ribbon in Word.
+3.  **Regex Prompt**: A dialog box will appear asking for a Regular Expression.
+    *   **Default**: `\[.*?\]\(zotero://.*?/items/([A-Z0-9]{8})\)`
+    *   **Requirement**: The regex MUST have a capture group (Group 1) that captures the **8-character Zotero Item Key**.
+4.  **Refresh**: After conversion, the citations will display as `[Loading...]`. Click the standard Zotero **Refresh** button to hydrate them with full metadata and apply the document's citation style.
+
+### Implementation Details
+*   **Logic**: The conversion logic is implemented entirely in VBA (`ZoteroRibbon.bas`). It uses the `wdFieldQuote` -> `wdFieldAddin` trick to forcefully insert Zotero-compatible fields without triggering Word's range protection or Zotero's "modified citation" warnings.
+*   **Safety**: This feature does not require any changes to the C++ DLL or specialized JavaScript bindings, ensuring stability and compatibility.

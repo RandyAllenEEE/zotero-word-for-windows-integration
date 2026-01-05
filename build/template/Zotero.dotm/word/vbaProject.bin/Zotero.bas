@@ -132,6 +132,10 @@ Public Sub ZoteroRemoveCodes()
     Call ZoteroCommand("removeCodes", False)
 End Sub
 
+Public Sub ZoteroConvert()
+    Call ZoteroCommand("convertTextToCitations", True)
+End Sub
+
 Private Sub FindZoteroWindow()
     ZotWnd = 0
     #If VBA7 Then

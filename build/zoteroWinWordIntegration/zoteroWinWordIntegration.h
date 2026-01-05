@@ -253,7 +253,7 @@ extern "C" {
 		const unsigned short noteType, const wchar_t fieldType[], listNode_t** returnNode);
 	__declspec(dllexport) statusCode __stdcall cleanup(document_t *doc);
 	__declspec(dllexport) statusCode __stdcall complete(document_t *doc);
-}
+
 
 statusCode getFieldRange(field_t* field, CRange* testRange);
 statusCode getProperty(document_t *doc, CString propertyName,
